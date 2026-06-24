@@ -24,7 +24,6 @@ inventario = ["Laptop", "Mouse", "Teclado"]
 
 print(inventario)
 
-# Agregar
 inventario.append("Audífonos")
 print(inventario)
 
@@ -34,26 +33,24 @@ print(inventario)
 inventario.extend(["Impresora", "Escáner"])
 print(inventario)
 
-# Actualizar
 inventario[0] = "Laptop Gamer"
 print(inventario)
 
-# Eliminar (Se cambiaron los elementos a borrar para conservar "Webcam")
 inventario.remove("Mouse")
 print(inventario)
 
-eliminado = inventario.pop() # Elimina "Escáner"
+eliminado = inventario.pop() 
 print(inventario)
 
-eliminado = inventario.pop(0) # Elimina "Laptop Gamer"
+eliminado = inventario.pop(0) 
 print(inventario)
 
-del inventario[2] # Elimina "Impresora" en lugar de la Webcam
+del inventario[2] 
 print(inventario)
 
 print("Buscar en lista")
 print("Webcam" in inventario)
-print(inventario.index("Webcam")) # Ahora funciona perfectamente porque sigue ahí
+print(inventario.index("Webcam")) 
 print(inventario.count("Webcam"))
 
 print("Ordenar listas")
