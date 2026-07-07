@@ -3,7 +3,7 @@ class Temperatura {
   valorFahrenheit: number;
 
   constructor(celsius: number, fahrenheit:number) {
-    this.valorCelsius = celsius:0;
+    this.valorCelsius = celsius;
     this.valorFahrenheit = fahrenheit;
   }
 

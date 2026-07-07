@@ -1,5 +1,16 @@
 // src/App.tsx
 
+import DigitalCounter from './01useState/DigitalCounter'
+import SafeCounter from './01useState/SafeCounter'
+import TaskManager from './01useState/TaskManager'
+import UserProfileForm from './01useState/UserProfileForm'
+import DocumentTitle from './02useEffect/DocumentTitle'
+import FetchUser from './02useEffect/FetchUser'
+import FetchUsers from './02useEffect/FetchUsers'
+import AutoFocusForm from './03userRef/AutoFocusForm'
+import InlineEditor from './03userRef/InlineEditor'
+import FruitList from './components/FruitList'
+import ProductCard from './components/ProductCard'
 import WelcomeBanner from './components/WelcomeBanner'
 
 
@@ -19,12 +30,12 @@ import WelcomeBanner from './components/WelcomeBanner'
 // │  12  ProductCatalogList  — lista con renderizado condicional de items   │
 // │  13  UserProfileCard     — ejercicio: props complejas + rol             │
 // └──────────────────────────────────────────────────────────────────────────┘
-const PASO = 1
+const PASO = 41
 
 const fruits = [
-  { name: 'Manzana', emoji: '🍎', calories: 52 },
-  { name: 'Banana',  emoji: '🍌', calories: 89 },
-  { name: 'Naranja', emoji: '🍊', calories: 47 },
+  { name: 'Manzana', emoji: '🍎', calories: 52, peso: 150 },
+  { name: 'Banana',  emoji: '🍌', calories: 89, peso: 120 },
+  { name: 'Naranja', emoji: '🍊', calories: 47, peso: 180 },
 ]
 
 const catalog = [
@@ -47,7 +58,7 @@ export default function App() {
 //      </div>
 //    ) :
 //    PASO ===  5 ? <ConditionalGreeting isLoggedIn={true} userName="Ana" timeOfDay="afternoon" /> :
-//    PASO ===  6 ? <FruitList fruits={fruits} title="Frutas favoritas" /> :
+      PASO ===  6 ? <FruitList fruits={fruits} title="Frutas favoritas" /> :
 //    PASO ===  7 ? (
 //      <div style={{ display: 'flex', gap: 24, alignItems: 'flex-end' }}>
 //        <PriceTag amount={99.99} currency="USD" />
@@ -81,7 +92,13 @@ export default function App() {
 //        ]}
 //      />
 //    ) :
-//    PASO === 11 ? <ProductCard title="Teclado inalámbrico" description="Bluetooth 5.0, retroiluminado" highlighted /> :
+      PASO === 11 ?<>
+      <WelcomeBanner /> 
+      <ProductCard title="Teclado inalámbrico" description="Bluetooth 5.0, retroiluminado" highlighted /> 
+      <ProductCard title="Laptop" description="16GB RAM, 512GB SSD"  /> 
+
+      </> :
+      
 //    PASO === 12 ? <ProductCatalogList products={catalog} title="Productos disponibles" /> :
 //    PASO === 13 ? (
 //      <UserProfileCard
@@ -93,8 +110,29 @@ export default function App() {
 //        bio="Desarrolladora fullstack con 5 años de experiencia."
 //      />
 //    ) :
-    <p style={{ color: '#e00' }}>Paso {PASO}: crea el componente primero</p>
+        PASO === 20 ?<DigitalCounter
+                      initialValue={10}
+                      step={5}
+                      label="Contar servidores"
+                    />:
+        PASO === 21 ?<SafeCounter/>:
+        PASO === 22 ?<UserProfileForm/>:
+        PASO === 23 ?<TaskManager/>:
 
+        PASO === 30 ?<DocumentTitle/>:
+        PASO === 31 ?<FetchUser/>:
+        PASO === 32 ?<FetchUsers/>:
+
+        PASO === 40 ?<AutoFocusForm/>:
+        PASO === 41 ?<InlineEditor/>:
+
+
+
+
+            
+    <p style={{ color: 'rgb(15, 15, 15)' }}>Paso {PASO}: crea el componente primero</p>
+
+   
   return (
     <main style={{ maxWidth: 540, margin: '40px auto', fontFamily: 'sans-serif', padding: '0 16px' }}>
       {content}
