@@ -9,6 +9,7 @@ import CatalogPage from '../pages/catalog/CatalogPage'
 import ProductDetailPage from '../pages/catalog/ProductDetailPage'
 import CartPage from '../pages/cart/CartPage'
 import OrderDetailPage from '../pages/orders/OrderDetailPage'
+import ProfilePage from '../pages/profile/ProfilePage'
 
 // ─── Lazy imports ─────────────────────────────────────────────────────────────
 
@@ -85,7 +86,7 @@ export default function AppRouter() {
               path="/profile"
               element={
                 <ProtectedRoute>
-                  <PlaceholderPage title="Perfil — Módulo 8" />
+                  <ProfilePage />
                 </ProtectedRoute>
               }
             />
