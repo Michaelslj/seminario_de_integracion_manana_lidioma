@@ -14,7 +14,6 @@ interface CatalogState {
   error: string | null
   totalCount: number
   currentPage: number
-  activeFilterCount: number
 }
 
 interface CatalogActions {
@@ -31,14 +30,6 @@ const DEFAULT_FILTERS: ProductFilters = {
   ordering: 'name',
 }
 
-function countActiveFilters(filters: ProductFilters): number {
-  let count = 0
-  if (filters.search.trim() !== '') count++
-  if (filters.categoryId !== null) count++
-  if (filters.ordering !== DEFAULT_FILTERS.ordering) count++
-  return count
-}
-
 export const useCatalogStore = create<CatalogState & CatalogActions>((set, get) => ({
   products: [],
   categories: [],
@@ -47,7 +38,6 @@ export const useCatalogStore = create<CatalogState & CatalogActions>((set, get) 
   error: null,
   totalCount: 0,
   currentPage: 1,
-  activeFilterCount: 0,
 
   async fetchProducts() {
     set({ isLoading: true, error: null })
@@ -68,29 +58,21 @@ export const useCatalogStore = create<CatalogState & CatalogActions>((set, get) 
   async fetchCategories() {
     try {
       const data = await categoryUseCase.getCategories()
-      set({ categories: data })
+      set({ categories: data.filter((c) => c.is_active) })
     } catch {
       // Las categorías son opcionales; no bloquear la UI si fallan
     }
   },
 
   setFilters(partial) {
-    set((state) => {
-      const newFilters = { ...state.filters, ...partial }
-      return {
-        filters: newFilters,
-        currentPage: 1,
-        activeFilterCount: countActiveFilters(newFilters),
-      }
-    })
+    set((state) => ({
+      filters: { ...state.filters, ...partial },
+      currentPage: 1,
+    }))
   },
 
   resetFilters() {
-    set({
-      filters: { ...DEFAULT_FILTERS },
-      currentPage: 1,
-      activeFilterCount: 0,
-    })
+    set({ filters: { ...DEFAULT_FILTERS }, currentPage: 1 })
   },
 
   setPage(page) {

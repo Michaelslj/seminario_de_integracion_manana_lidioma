@@ -11,6 +11,7 @@ import CartPage from '../pages/cart/CartPage'
 import OrderDetailPage from '../pages/orders/OrderDetailPage'
 import ProfilePage from '../pages/profile/ProfilePage'
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage'
+import AdminProductsPage from '../pages/admin/AdminProductsPage'
 
 // ─── Lazy imports ─────────────────────────────────────────────────────────────
 
@@ -55,7 +56,7 @@ export default function AppRouter() {
           <Route element={<AppShell />}>
             {/* Públicas — placeholder hasta el módulo 4/5 */}
             <Route path="/" element={<CatalogPage />} />
-            <Route path="/catalog" element={<CatalogPage/>} />
+            <Route path="/catalog" element={<CatalogPage />} />
             <Route path="/products/:id" element={<ProductDetailPage />} />
 
             {/* Requieren autenticación — placeholder hasta los módulos 6, 7 y 8 */}
@@ -97,7 +98,7 @@ export default function AppRouter() {
               path="/admin"
               element={
                 <ProtectedRoute requireStaff>
-                  <AdminDashboardPage/>
+                  <AdminDashboardPage />
                 </ProtectedRoute>
               }
             />
@@ -113,7 +114,7 @@ export default function AppRouter() {
               path="/admin/products"
               element={
                 <ProtectedRoute requireStaff>
-                  <PlaceholderPage title="Admin Productos — Módulo 11" />
+                  <AdminProductsPage />
                 </ProtectedRoute>
               }
             />
