@@ -28,11 +28,22 @@ export class AxiosUserRepository implements UserRepository {
     }
   }
   async getStats(): Promise<UserStats> {
-  try {
-    const { data } = await apiClient.get<UserStats>('/users/stats/')
-    return data
-  } catch (err) {
-    throw parseApiError(err)
+    try {
+      const { data } = await apiClient.get<UserStats>('/users/stats/')
+      return data
+    } catch (err) {
+      throw parseApiError(err)
+    }
   }
-}
+  async uploadAvatar(file: File): Promise<UserProfile> {
+    const formData = new FormData()
+    formData.append('avatar', file)
+
+    try {
+      const { data } = await apiClient.patch<UserProfile>('/users/profile/', formData)
+      return data
+    } catch (err) {
+      throw parseApiError(err)
+    }
+  }
 }

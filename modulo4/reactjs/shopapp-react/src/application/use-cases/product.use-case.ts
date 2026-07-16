@@ -36,5 +36,9 @@ export class ProductUseCase {
   restockProduct(id: number, quantity: number): Promise<{ id: number; name: string; new_stock: number }> {
     return this.productRepository.restockProduct(id, quantity)
   }
+  // ── Agregar a la clase ProductUseCase existente ──
+  uploadImage(id: number, file: File): Promise<Product> {
+    return this.productRepository.uploadImage(id, file)
+  }
 
 }

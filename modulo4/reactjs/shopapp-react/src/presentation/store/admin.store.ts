@@ -55,6 +55,8 @@ interface AdminActions {
   setOrdersStatusFilter(status: OrderStatus | ''): void
   setOrdersPage(page: number): void
   updateOrderStatus(id: number, status: OrderStatus): Promise<void>
+  uploadProductImage(id: number, file: File): Promise<void>
+
 }
 
 export const useAdminStore = create<AdminState & AdminActions>((set, get) => ({
@@ -214,4 +216,12 @@ export const useAdminStore = create<AdminState & AdminActions>((set, get) => ({
       throw err instanceof ApiException ? err : new Error('No se pudo actualizar el estado de la orden.')
     }
   },
+  async uploadProductImage(id, file) {
+  try {
+    const updated = await productUseCase.uploadImage(id, file)
+    set({ products: get().products.map((p) => (p.id === id ? updated : p)) })
+  } catch (err) {
+    throw err instanceof ApiException ? err : new Error('No se pudo subir la imagen.')
+  }
+},
 }))

@@ -5,7 +5,7 @@ import type { UpdateProfileDto } from '@/application/dtos/update-profile.dto'
 import type { UserStats } from '@/domain/entities/user-stats.entity'
 
 export class UserUseCase {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private readonly userRepository: UserRepository) { }
 
   getProfile(): Promise<UserProfile> {
     return this.userRepository.getProfile()
@@ -15,7 +15,11 @@ export class UserUseCase {
     return this.userRepository.updateProfile(dto)
   }
   getStats(): Promise<UserStats> {
-  return this.userRepository.getStats()
-}
+    return this.userRepository.getStats()
+  }
+  // ── Agregar a la clase UserUseCase existente ──
+  uploadAvatar(file: File): Promise<UserProfile> {
+    return this.userRepository.uploadAvatar(file)
+  }
 
 }

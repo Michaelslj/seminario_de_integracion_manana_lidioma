@@ -9,6 +9,8 @@ export interface UserRepository {
     last_name?: string
     email?: string
   }): Promise<UserProfile>
-    getStats(): Promise<UserStats>
+  getStats(): Promise<UserStats>
+  // ── Agregar a la interfaz UserRepository existente ──
+  uploadAvatar(file: File): Promise<UserProfile>
 
 }
