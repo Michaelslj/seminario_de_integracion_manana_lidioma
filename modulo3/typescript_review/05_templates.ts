@@ -4,7 +4,7 @@ const rol: string    = "administradora";
 const sesiones: number = 42;
 
 // Interpola cualquier expresión con ${ }
-const bienvenida: string = `Bienvenida, ${nombre}. Rol: ${rol}. Sesiones: ${sesiones}.`;
+const bienvenid: string = `Bienvenida, ${nombre}. Rol: ${rol}. Sesiones: ${sesiones}.`;
 console.log(bienvenida);
 // Bienvenida, Ana. Rol: administradora. Sesiones: 42.
 
