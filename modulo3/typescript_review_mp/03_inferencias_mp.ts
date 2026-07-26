@@ -1,5 +1,5 @@
 const codigoProducto: number = 1001;
-const nombreProducto: string = "Laptop Gamer";
+const nombreProducts: string = "Laptop Gamer";
 const disponible: boolean = true;
 
 const stock = 25;                 // number
@@ -16,7 +16,7 @@ function registrarProducto(
   nombre: string,
   cantidad: number
 ): string {
-  return `Producto: ${nombre} | Cantidad: ${cantidad}`;
+  return `Products: ${nombre} | Cantidad: ${cantidad}`;
 }
 
 console.log(

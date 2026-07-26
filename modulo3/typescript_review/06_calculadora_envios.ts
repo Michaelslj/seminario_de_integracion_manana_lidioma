@@ -1,59 +1,54 @@
-// Sistema de cotización de envíos para una tienda e-commerce.
+// Sistema de gestión de inventario y valoración de stock para una bodega.
 // Demuestra cómo los tipos previenen errores en lógica de negocio real.
 
-type ZonaEnvio = "local" | "nacional" | "internacional";
+type CategoriaProducto = "electronica" | "hogar" | "perecedero" | "ropa";
 
-interface Paquete {
-  descripcion: string;
-  pesoKg: number;
-  valorDeclarado: number;
-  zona: ZonaEnvio;
+interface ProductoInventario {
+codigo: string;
+nombre: string;
+stockActual: number;
+stockMinimo: number;
+costoUnitario: number;
+categoria: CategoriaProducto;
 }
 
-const TARIFAS: Record<ZonaEnvio, number> = {
-  local:           2.50,   // $ por kg
-  nacional:        5.00,
-  internacional:  12.00,
+const COSTO_ALMACENAJE_PCT: Record<CategoriaProducto, number> = {
+electronica: 0.05, // 5% de costo de mantenimiento por unidad
+hogar:       0.03,
+perecedero:  0.08, // Mayor costo por refrigeración/riesgo
+ropa:        0.02,
 };
 
-const SEGURO_PCT = 0.005;  // 0.5% del valor declarado
+function evaluarInventario(producto: ProductoInventario): string {
+const valorTotalStock = producto.stockActual * producto.costoUnitario;
+const costoAlmacenaje = valorTotalStock * COSTO_ALMACENAJE_PCT[producto.categoria];
+const requiereReabastecimiento = producto.stockActual <= producto.stockMinimo;
 
-function cotizarEnvio(paquete: Paquete): string {
-  const tarifaBase = TARIFAS[paquete.zona];
-  const costoFlete = tarifaBase * paquete.pesoKg;
-  const costoSeguro = paquete.valorDeclarado * SEGURO_PCT;
-  const total = costoFlete + costoSeguro;
-
-  return `
-📦 Cotización de envío
-   Descripción : ${paquete.descripcion}
-   Peso        : ${paquete.pesoKg} kg
-   Zona        : ${paquete.zona}
-   Flete       : $${costoFlete.toFixed(2)}
-   Seguro      : $${costoSeguro.toFixed(2)}
-   ─────────────────────────
-   TOTAL       : $${total.toFixed(2)}
-  `.trim();
+return ${producto.codigo} Producto    : ${producto.nombre} Categoría   : ${producto.categoria} Stock Actual: ${producto.stockActual} unidades (Mín: ${producto.stockMinimo}) Valor Stock : $${valorTotalStock.toFixed(2)} Almacenaje  : $${costoAlmacenaje.toFixed(2)} Estado      : ${requiereReabastecimiento ? "⚠️ REABASTECER URGENTE" : "✅ Stock Óptimo"} ─────────────────────────.trim();
 }
 
-const pedido1: Paquete = {
-  descripcion: "Laptop Dell XPS 15",
-  pesoKg: 2.1,
-  valorDeclarado: 1800,
-  zona: "nacional",
+const producto1: ProductoInventario = {
+codigo: "ELEC-001",
+nombre: "Smart TV 55 pulgadas 4K",
+stockActual: 8,
+stockMinimo: 10,
+costoUnitario: 350.00,
+categoria: "electronica",
 };
 
-const pedido2: Paquete = {
-  descripcion: "Auriculares Sony WH-1000XM5",
-  pesoKg: 0.4,
-  valorDeclarado: 350,
-  zona: "internacional",
+const producto2: ProductoInventario = {
+codigo: "PER-045",
+nombre: "Yogurt Entero 1L (Pack)",
+stockActual: 45,
+stockMinimo: 20,
+costoUnitario: 1.50,
+categoria: "perecedero",
 };
 
-console.log(cotizarEnvio(pedido1));
+console.log(evaluarInventario(producto1));
 console.log("---");
-console.log(cotizarEnvio(pedido2));
+console.log(evaluarInventario(producto2));
 
-// TS detecta si usas una zona inválida:
-// const pedido3: Paquete = { ..., zona: "express" };
-// Type '"express"' is not assignable to type 'ZonaEnvio'.
+// TS detecta si usas una categoría inválida:
+// const producto3: ProductoInventario = { ..., categoria: "automotriz" };
+// Type '"automotriz"' is not assignable to type 'CategoriaProducto'.

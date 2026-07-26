@@ -2,7 +2,7 @@
 const precioUnitario: number = 850.75;
 const cantidadDisponible: number = 12;
 const descuentoAplicado: number = 75;
-const idProducto: number = 501;
+const idProducts: number = 501;
 
 // string — texto
 const nombreArticulo: string = "Monitor LED 24 pulgadas";
