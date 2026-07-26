@@ -1,7 +1,7 @@
 // Sistema de gestión de inventario y valoración de stock para una bodega.
 // Demuestra cómo los tipos previenen errores en lógica de negocio real.
 
-type CategoriaProducts = "electronica" | "hogar" | "perecedero" | "ropa";
+type CategoriaProduct = "electronica" | "hogar" | "perecedero" | "ropa";
 
 interface ProductoInventario {
   codigo: string;
@@ -9,19 +9,19 @@ interface ProductoInventario {
   stockActual: number;
   stockMinimo: number;
   costoUnitario: number;
-  categoria: CategoriaProducto;
+  categoria: CategoriaProduct;
 }
 
-const COSTO_ALMACENAJE_PC: Record<CategoriaProducts, number> = {
+const COSTO_ALMACENAJE_PC: Record<CategoriaProduct, number> = {
   electronica: 0.05, // 5% de costo de mantenimiento por unidad
   hogar:       0.03,
   perecedero:  0.08, // Mayor costo por refrigeración/riesgo
   ropa:        0.02,
 };
 
-function evaluarInventari(producto: ProductoInventario): string {
+function evaluarInventario(producto: ProductoInventario): string {
   const valorTotalStock = producto.stockActual * producto.costoUnitario;
-  const costoAlmacenaje = valorTotalStock * COSTO_ALMACENAJE_PCT[producto.categoria];
+  const costoAlmacenaje = valorTotalStock * COSTO_ALMACENAJE_PC[producto.categoria];
   const requiereReabastecimiento = producto.stockActual <= producto.stockMinimo;
 
   return `
@@ -52,10 +52,10 @@ const product2: ProductoInventario = {
   categoria: "perecedero",
 };
 
-console.log(evaluarInventari(producto1));
+console.log(evaluarInventario(product1));
 console.log("---");
-console.log(evaluarInventari(producto2));
+console.log(evaluarInventario(product2));
 
 // TS detecta si usas una categoría inválida:
 // const producto3: ProductoInventario = { ..., categoria: "automotriz" };
-// Type '"automotriz"' is not assignable to type 'CategoriaProducto'.
+// Type '"automotriz"' is not assignable to type 'CategoriaProduct'.
