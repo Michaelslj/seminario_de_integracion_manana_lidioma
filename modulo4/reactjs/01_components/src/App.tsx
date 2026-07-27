@@ -30,7 +30,7 @@ import WelcomeBanner from './components/WelcomeBanner'
 // │  12  ProductCatalogList  — lista con renderizado condicional de items   │
 // │  13  UserProfileCard     — ejercicio: props complejas + rol             │
 // └──────────────────────────────────────────────────────────────────────────┘
-const PASO = 41
+const PASO = 30
 
 const fruits = [
   { name: 'Manzana', emoji: '🍎', calories: 52, peso: 150 },
