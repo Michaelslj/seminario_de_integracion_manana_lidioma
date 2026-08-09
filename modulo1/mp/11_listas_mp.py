@@ -24,7 +24,6 @@ inventario = ["Laptop", "Mouse", "Teclado"]
 
 print(inventario)
 
-# Agregar
 inventario.append("Audífonos")
 print(inventario)
 
@@ -34,26 +33,24 @@ print(inventario)
 inventario.extend(["Impresora", "Escáner"])
 print(inventario)
 
-# Actualizar
 inventario[0] = "Laptop Gamer"
 print(inventario)
 
-# Eliminar
 inventario.remove("Mouse")
 print(inventario)
 
-eliminado = inventario.pop()
+eliminado = inventario.pop() 
 print(inventario)
 
-eliminado = inventario.pop(0)
+eliminado = inventario.pop(0) 
 print(inventario)
 
-del inventario[0]
+del inventario[2] 
 print(inventario)
 
 print("Buscar en lista")
 print("Webcam" in inventario)
-print(inventario.index("Webcam"))
+print(inventario.index("Webcam")) 
 print(inventario.count("Webcam"))
 
 print("Ordenar listas")

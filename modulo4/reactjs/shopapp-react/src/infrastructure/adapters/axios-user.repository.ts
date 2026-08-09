@@ -1,0 +1,49 @@
+// src/infrastructure/adapters/axios-user.repository.ts
+import { apiClient } from '@/infrastructure/http/axios-client'
+import { parseApiError } from '@/infrastructure/http/parse-api-error'
+import type { UserRepository } from '@/domain/ports/user.repository'
+import type { UserProfile } from '@/domain/entities/user-profile.entity'
+import type { UserStats } from '@/domain/entities/user-stats.entity'
+
+export class AxiosUserRepository implements UserRepository {
+  async getProfile(): Promise<UserProfile> {
+    try {
+      const { data } = await apiClient.get<UserProfile>('/users/profile/')
+      return data
+    } catch (err) {
+      throw parseApiError(err)
+    }
+  }
+
+  async updateProfile(payload: {
+    first_name?: string
+    last_name?: string
+    email?: string
+  }): Promise<UserProfile> {
+    try {
+      const { data } = await apiClient.patch<UserProfile>('/users/profile/', payload)
+      return data
+    } catch (err) {
+      throw parseApiError(err)
+    }
+  }
+  async getStats(): Promise<UserStats> {
+    try {
+      const { data } = await apiClient.get<UserStats>('/users/stats/')
+      return data
+    } catch (err) {
+      throw parseApiError(err)
+    }
+  }
+  async uploadAvatar(file: File): Promise<UserProfile> {
+    const formData = new FormData()
+    formData.append('avatar', file)
+
+    try {
+      const { data } = await apiClient.patch<UserProfile>('/users/profile/', formData)
+      return data
+    } catch (err) {
+      throw parseApiError(err)
+    }
+  }
+}
